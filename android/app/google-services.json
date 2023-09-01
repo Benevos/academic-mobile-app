@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "512843967914",
+    "project_id": "academic-web-a",
+    "storage_bucket": "academic-web-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512843967914:android:783df69567e56270194fd3",
+        "android_client_info": {
+          "package_name": "com.example.empty_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512843967914-d1qng0rsl15hf27cb7v3mvhgnol63m2s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBqLOkKibwDgR5SLeB6atcLQfcPh_tQlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512843967914-d1qng0rsl15hf27cb7v3mvhgnol63m2s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "512843967914-db3h8cj4uiut47225u83rsjjgsgkrvf1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.crudFirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

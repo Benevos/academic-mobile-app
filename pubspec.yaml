@@ -1,7 +1,7 @@
 name: empty_app
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.0
+version: 2.0.1
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -14,6 +14,9 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_math_fork: ^0.7.1
   flutter_tex: ^4.0.3+4
+  font_awesome_flutter: ^10.6.0
+  url_launcher: ^6.2.3
+  mailto: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -23,7 +26,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "lib/assets/favico.jpg"
+  image_path: "lib/assets/uat.jpeg"
   
 flutter:
   uses-material-design: true

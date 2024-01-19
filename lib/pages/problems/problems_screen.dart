@@ -28,8 +28,11 @@ class _ProblemsScreenState extends State<ProblemsScreen>
   int attemps = 1;
 
   Map<String, dynamic> problemData = {
-    'title': 'Cargando titulo...',
-    'paragraph': 'Cargando enunciado...',
+    'title': 'Cargando...',
+    'paragraph': 'Cargando...',
+    'category': 'Cargando',
+    'subcategory': 'Cargando...',
+    'difficulty': 'Cargando...',
     'answers': [
       'Cargando...',
       'Cargando...',
@@ -81,7 +84,35 @@ class _ProblemsScreenState extends State<ProblemsScreen>
 
     arguments = ModalRoute.of(context)!.settings.arguments as Map;
 
-    problems = await getMultipleEqualToQueriedCollection('problems', ['scholarKey', 'category'], [arguments['scholarKey'], arguments['category']]);
+    List<String> fields = ['scholarKey'];
+    List<String> values = [arguments['scholarKey']];
+
+
+    if(arguments['category'] != 'all')
+    {
+      fields.add('category');
+      values.add(arguments['category']);
+
+      if(arguments['subcategory'] != 'all') 
+      {
+        fields.add('subcategory');
+        values.add(arguments['subcategory']);    
+      }
+    }
+
+    if(arguments['difficulty'] != 'all') {
+      fields.add('difficulty');
+      values.add(arguments['difficulty']);
+    }
+
+    fields.add('academicLevel');
+    values.add(arguments['academicLevel']);
+
+    problems = await getMultipleEqualToQueriedCollection(
+      'problems', 
+      fields, 
+      values,
+    );
     
     Navigator.pop(context);
 
@@ -145,7 +176,7 @@ class _ProblemsScreenState extends State<ProblemsScreen>
             },
             icon: const Icon(Icons.arrow_back, color: Colors.red,),
           ),
-            title: Text("${arguments['categoryUI']} (${currentProblem+1}/${problemLength+1})",
+            title: Text("${arguments['category']} (${currentProblem+1}/${problemLength+1})",
               style: const TextStyle(
               
               color: Colors.white,
@@ -167,15 +198,25 @@ class _ProblemsScreenState extends State<ProblemsScreen>
                     child: TeXViewColumn(
                       children: [
                         TeXViewDocument('<h3>${problemData['title']}</h3>', 
-                          style: const TeXViewStyle(
-                            backgroundColor: Colors.blue,
-                            borderRadius: TeXViewBorderRadius.all(10),
+                          style: TeXViewStyle(
+                            backgroundColor: Colors.blue[700],
+                            borderRadius: const TeXViewBorderRadius.only(topLeft: 10, topRight: 10),
                             textAlign: TeXViewTextAlign.center,
-                            padding: TeXViewPadding.only(bottom: 20, top: 20, left: 20, right: 20),
-                            margin: TeXViewMargin.only(bottom: 10),
+                            padding: const TeXViewPadding.only(bottom: 20, top: 20, left: 20, right: 20),
                             contentColor: Colors.white
                           )
                         ),
+
+                        TeXViewDocument('<h4>${problemData['category']}: ${problemData['subcategory'] == 'all' ? 'Cualquiera' : problemData['subcategory']}</h4>', 
+                          style: TeXViewStyle(
+                            backgroundColor: Colors.yellow[800],
+                            textAlign: TeXViewTextAlign.center,
+                            padding: const TeXViewPadding.only(bottom: 10, top: 10, left: 20, right: 20),
+                            contentColor: Colors.white
+                          )
+                        ),
+
+                        _buildDifficultyTitle(problemData['difficulty']),
 
                         TeXViewDocument('<p>${problemData['paragraph']}</p>', 
                           style: const TeXViewStyle(
@@ -258,6 +299,48 @@ class _ProblemsScreenState extends State<ProblemsScreen>
     );
   }
 
+  TeXViewWidget _buildDifficultyTitle(String difficulty)
+  {
+
+    String difficultyUI = '';
+    Color? color = Colors.blue[500];
+
+    if(difficulty == 'easy') 
+    {
+      difficultyUI = 'Fácil';
+      color = Colors.green[500];
+    }
+
+    else if(difficulty == 'normal') 
+    {
+      difficultyUI = 'Medio';
+      color = Colors.yellow[800];
+    }
+
+    else if(difficulty == 'hard')
+    { 
+      difficultyUI = 'Díficil';
+      color = Colors.red[500];
+    }
+
+    else if(difficulty == 'expert')
+    {
+      difficultyUI = 'Experto';
+      color = Colors.red[900];
+    }
+  
+    return TeXViewDocument('<h5>$difficultyUI</h5>', 
+      style: TeXViewStyle(
+        backgroundColor: color,
+        borderRadius: const TeXViewBorderRadius.only(bottomLeft: 10, bottomRight: 10),
+        textAlign: TeXViewTextAlign.center,
+        padding: const TeXViewPadding.only(bottom: 10, top: 10, left: 20, right: 20),
+        margin: const TeXViewMargin.only(bottom: 10),
+        contentColor: Colors.white
+      )
+    );
+  }
+
   Widget _buildAnswerButton(int answerId, String message, Color? backgroundColor)
   {
     return SizedBox(
@@ -277,15 +360,11 @@ class _ProblemsScreenState extends State<ProblemsScreen>
          
           showSuccessBottomSheet(context, '¡Respuesta correcta!', 'Cargando siguiente problema...', false);
           
-
           var responseData = {
             'scholarKey': arguments['scholarKey'],
             'problemId': problemData['uid'],
             'attemps': attemps,
-            'elapsedTime': {
-              'minutes': _stopwatch.elapsed.inMinutes,
-              'seconds': _stopwatch.elapsed.inSeconds
-            },
+            'elapsedTime': (_stopwatch.elapsed.inMinutes * 60) + _stopwatch.elapsed.inSeconds,
             'date': {
               'day': DateTime.now().day,
               'month': DateTime.now().month,

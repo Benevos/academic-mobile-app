@@ -1,3 +1,5 @@
+import 'package:empty_app/services/firebase_service.dart';
+import 'package:empty_app/utils/scripts/global_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,17 +37,25 @@ class DashboardScreen extends StatelessWidget
                 
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                  child:  const Text('Seleccione una categoria para empezar', style: TextStyle(fontWeight: FontWeight.w700, fontSize:20), textAlign: TextAlign.center,),
+                  child:  const Text('Seleccione una categoia', style: TextStyle(fontWeight: FontWeight.w700, fontSize:20), textAlign: TextAlign.center,),
                 ),
-            
-                Column(
-                  children: [
-                    _buildCategoryButton(context, arguments, 10, 'elementary', 'Primaria', Colors.blue[600]),
-                    _buildCategoryButton(context, arguments, 10, 'middle', 'Secundaria', Colors.blue[700]),
-                    _buildCategoryButton(context, arguments, 10, 'high', 'Preparatoria', Colors.blue[800]),
-                    _buildCategoryButton(context, arguments, 10, 'college', 'Universidad', Colors.blue[900]),
-                    _buildCategoryButton(context, arguments, 0, 'high', 'Clave de acceso', Colors.orange[800]),
-                  ]
+
+                FutureBuilder(
+                  future: getSingleConditionQueriedCollection('institutions', 'scholarKey', '==', arguments['scholarKey']), 
+                  builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot)
+                  {
+                    List<Widget> children = [];
+                    
+                    if(snapshot.hasData)
+                    {
+                      snapshot.data![0]['academicLevel'][0] == 'college' ? children.add(_buildCategoryButton(context, arguments, 15, 'college', 'Universidad', Colors.blue[600])) : '';
+                      snapshot.data![0]['academicLevel'][1] == 'high' ? children.add(_buildCategoryButton(context, arguments, 15, 'high', 'Preparatoria', Colors.blue[700])) : '';
+                      snapshot.data![0]['academicLevel'][2] == 'middle' ? children.add(_buildCategoryButton(context, arguments, 15, 'middle', 'Secundaria', Colors.blue[800])) : '';
+                      snapshot.data![0]['academicLevel'][3] == 'elementary' ? children.add(_buildCategoryButton(context, arguments, 0, 'elementary', 'Primaria', Colors.blue[900])) : '';
+                    }
+
+                    return Column(children: children,);
+                  }
                 ),
               ],
             ),
@@ -98,7 +108,7 @@ class DashboardScreen extends StatelessWidget
     );
   }
 
-  Widget _buildCategoryButton(BuildContext context, Map<dynamic, dynamic> arguments, double marginBottom, String category, String categoryUI, Color? color)
+  Widget _buildCategoryButton(BuildContext context, Map<dynamic, dynamic> arguments, double marginBottom, String academicLevel, String academicLevelUI, Color? color)
   {
     return Container(
       height: 50,
@@ -107,10 +117,10 @@ class DashboardScreen extends StatelessWidget
       child: TextButton(
         onPressed: ()
         {
-          Navigator.pushNamed(context, '/dashboard/problems', arguments: {
+          Navigator.pushNamed(context, '/dashboard/categories', arguments: {
             'scholarKey': arguments['scholarKey'],
-            'category': category,
-            'categoryUI': categoryUI 
+            'academicLevel': academicLevel,
+            'academicLevelUI': academicLevelUI 
             }
           );
         },
@@ -118,7 +128,7 @@ class DashboardScreen extends StatelessWidget
           backgroundColor: MaterialStatePropertyAll(color),
         
         ),
-        child: Text(categoryUI, style: const TextStyle(color: Colors.white)),
+        child: Text(academicLevelUI, style: const TextStyle(color: Colors.white)),
       ),
     );
   }

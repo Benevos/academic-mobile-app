@@ -33,6 +33,11 @@ class _RegisterScreenState extends State<RegisterScreen>
   String? passwordErrorMessage = "";
   String? confirmedPasswordErrorMessage = "";
 
+  bool collegeChecked = false;
+  bool highSchoolChecked = false;
+  bool middleSchoolChecked = false;
+  bool elementarySchoolChecked = false;
+
   String statusModalMessage = "";
   bool modalErorr = false;
 
@@ -89,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                   width: 180,
                   //color: Colors.red,
-                  child: Center(child: Image.asset('lib/assets/siglas-UAT.png'))
+                  child: Center(child: Image.asset('lib/assets/uat.jpeg'))
                 ),
       
                 Container(
@@ -159,6 +164,75 @@ class _RegisterScreenState extends State<RegisterScreen>
                     ),
                   ),
                 ),
+
+                Center(
+                  child: Text('Nivel academico', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: Colors.orange[800])),
+                ),
+                
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      Checkbox(value: collegeChecked, 
+                      onChanged: (bool? value)
+                      {
+                        collegeChecked = !collegeChecked;
+                        setState(() {
+                          
+                        });
+                      }),
+                      Text('Universidad', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue[600]))
+                    ],
+                  )
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      Checkbox(value: highSchoolChecked, 
+                      onChanged: (bool? value)
+                      {
+                        highSchoolChecked = !highSchoolChecked;
+                        setState(() {
+                          
+                        });
+                      }),
+                      Text('Preparatoria', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue[700]))
+                    ],
+                  )
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Row(
+                    children: [
+                      Checkbox(value: middleSchoolChecked, 
+                      onChanged: (bool? value)
+                      {
+                        middleSchoolChecked = !middleSchoolChecked;
+                        setState(() {
+                          
+                        });
+                      }),
+                      Text('Secundaria', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue[800]))
+                    ],
+                  )
+                ),
+                Container(
+                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                  child: Row(
+                    children: [
+                      Checkbox(value: elementarySchoolChecked, 
+                      onChanged: (bool? value)
+                      {
+                        elementarySchoolChecked = !elementarySchoolChecked;
+                        setState(() {
+                          
+                        });
+                      }),
+                      Text('Primaria', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue[900]))
+                    ],
+                  )
+                ),
       
                 SizedBox(
                   height: 50,
@@ -202,7 +276,14 @@ class _RegisterScreenState extends State<RegisterScreen>
                       insitutionNameErrorMessage = validateInsitutionName ? 'No deje espacios vacios' : null;
                       passwordErrorMessage = validatePassword ? 'No deje espacios vacios' : null;
                       confirmedPasswordErrorMessage = validateConfirmedPassword ? 'No deje espacios vacios' : null;
-                      
+
+                      int checkboxesChecked = 0;
+
+                      if(collegeChecked) checkboxesChecked++;
+                      if(highSchoolChecked) checkboxesChecked++;
+                      if(middleSchoolChecked) checkboxesChecked++;
+                      if(elementarySchoolChecked) checkboxesChecked++;
+
                       if(confirmedPasswordController.text != "")
                       {
                         validateConfirmedPassword = evalauteNotCoincidentPasswords(passwordController, confirmedPasswordController);
@@ -227,17 +308,31 @@ class _RegisterScreenState extends State<RegisterScreen>
                         return;
                       }
 
+                      if(checkboxesChecked <= 0)
+                      {
+                        showFailureBottomSheet(context, 'Error', "Seleccione al menos un nivel acádemico");
+                        validateForm = true;
+                      }
+
                       if(validateForm)
                       {
                         setState(() {});
                         return;
                       }
+
+                      final academicLevels = [
+                        collegeChecked ? 'college' : null,
+                        highSchoolChecked ? 'high' : null,
+                        middleSchoolChecked ? 'middle' : null,
+                        elementarySchoolChecked ? 'elementary' : null
+                      ];
                       
                       final insitutionData = {
                         'scholarKey': scholarKeyController.text.toUpperCase(),
                         'email': emailController.text.toLowerCase(),
-                        'insitutionName': institutionNameController.text,
-                        'password': passwordController.text
+                        'institutionName': institutionNameController.text,
+                        'password': passwordController.text,
+                        'academicLevel': academicLevels
                       };
                       
                       showProgressBottomSheet(context, 'Registrando...');
@@ -248,8 +343,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                           
                         Navigator.pop(context);
 
-                        showSuccessBottomSheet(context, '¡Éxito!', 'Se ha registrado su institución exitosamente, ahora puede ir a la web a crear sus problemas personalizados');
+                        showSuccessBottomSheet(context, '¡Éxito!', 'Se ha registrado su institución exitosamente, ahora puede ir a la web a crear sus problemas personalizados en https://www.academic-web-app-v2.vercel.app');
 
+                        collegeChecked = false;
+                        highSchoolChecked = false;
+                        middleSchoolChecked = false;
+                        elementarySchoolChecked = false;
+                        
                         scholarKeyController.clear();
                         emailController.clear();
                         institutionNameController.clear();

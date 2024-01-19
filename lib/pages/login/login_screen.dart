@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen>
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                   width: 180,
                   //color: Colors.red,
-                  child: Center(child: Image.asset('lib/assets/siglas-UAT.png'))
+                  child: Center(child: Image.asset('lib/assets/uat.jpeg'))
                 ),
 
                 Container(
@@ -174,7 +174,14 @@ class _LoginScreenState extends State<LoginScreen>
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     )
                   ),
-                )
+                ),
+
+                TextButton(
+                  onPressed: () 
+                  {
+                    Navigator.pushNamed(context, '/about');
+                  }, 
+                  child: Text('Contacto del desarrollador'))
               ]
             )
           ),

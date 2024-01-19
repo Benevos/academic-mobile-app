@@ -1,7 +1,11 @@
+import 'package:empty_app/pages/about/about_screen.dart';
 import 'package:empty_app/pages/dashboard/dashboard_screen.dart';
 import 'package:empty_app/pages/login/login_screen.dart';
 import 'package:empty_app/pages/problems/problems_screen.dart';
 import 'package:empty_app/pages/register/register_screen.dart';
+import 'package:empty_app/pages/difficulty/difficulty_screen.dart';
+import 'package:empty_app/pages/categories/categories_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tex/flutter_tex.dart';
 import 'package:flutter/services.dart';
@@ -61,8 +65,11 @@ class MainApp extends StatelessWidget
       routes: {
         '/':(context) => const LoginScreen(),
         '/register':(context) => const RegisterScreen(),
+        '/about':(context) => const AboutScreen(),
         '/dashboard':(context) => const DashboardScreen(),
-        '/dashboard/problems':(context) => const ProblemsScreen(),
+        '/dashboard/categories':(context) => const CategoriesScreen(),
+        '/dashboard/categories/difficulty':(context) => const DifficultyScreen(),
+        '/dashboard/categories/difficulty/problems':(context) => const ProblemsScreen(),
       },
     );
   }

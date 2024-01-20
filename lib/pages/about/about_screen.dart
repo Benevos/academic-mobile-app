@@ -65,23 +65,7 @@ class AboutScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.blue[500],
-                      borderRadius: BorderRadius.circular(4)
-                    ),
-                    child: IconButton(
-                      onPressed: () async 
-                      {
-                        var uri = Uri.parse('https://www.linkedin.com/in/kevin-daniel-mendoza-hern%C3%A1ndez-68362623a/');
-                    
-                        await launchUrl(uri);
-                      }, 
-                      icon: const Icon(FontAwesomeIcons.linkedinIn, color: Colors.white, size: 37,)
-                    ),
-                  ),
-
-                  const SizedBox(width: 10,),
+                  
 
                   Container(
                     decoration: BoxDecoration(
@@ -99,23 +83,7 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(width: 10,),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 0, 94, 170),
-                      borderRadius: BorderRadius.circular(4)
-                    ),
-                    child: IconButton(
-                      onPressed: () async 
-                      {
-                        var uri = Uri.parse('https://benevos.vercel.app/');
-                    
-                        await launchUrl(uri);
-                      }, 
-                      icon: const Icon(FontAwesomeIcons.briefcase, color: Colors.white, size: 37,)
-                    ),
-                  ),
+                  
                 ],
               )
             ],

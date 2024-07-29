@@ -1,6 +1,7 @@
 import 'package:empty_app/services/firebase_service.dart';
 import 'package:empty_app/utils/scripts/global_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget 
 {
@@ -181,7 +182,16 @@ class _LoginScreenState extends State<LoginScreen>
                   {
                     Navigator.pushNamed(context, '/about');
                   }, 
-                  child: Text('Contacto del desarrollador'))
+                  child: Text('Contacto del desarrollador')),
+
+                TextButton(
+                  onPressed: () async 
+                  {
+                      var uri = Uri.parse('https://academic-web-app-v2.vercel.app/privacy');
+                    
+                      await launchUrl(uri);
+                  }, 
+                  child: Text('Aviso de privacidad'))
               ]
             )
           ),

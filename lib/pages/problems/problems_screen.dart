@@ -1,4 +1,4 @@
-import 'package:empty_app/pages/problems/problems_functions.dart';
+
 import 'package:empty_app/services/firebase_service.dart';
 import 'package:empty_app/utils/scripts/global_functions.dart';
 import 'package:flutter/cupertino.dart';
@@ -364,7 +364,7 @@ class _ProblemsScreenState extends State<ProblemsScreen>
             'scholarKey': arguments['scholarKey'],
             'problemId': problemData['uid'],
             'attemps': attemps,
-            'elapsedTime': (_stopwatch.elapsed.inMinutes * 60) + _stopwatch.elapsed.inSeconds,
+            'elapsedTime': _stopwatch.elapsed.inSeconds,
             'date': {
               'day': DateTime.now().day,
               'month': DateTime.now().month,

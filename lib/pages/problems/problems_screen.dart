@@ -55,12 +55,14 @@ class _ProblemsScreenState extends State<ProblemsScreen>
   }
 
   void _stopTimer()
+{
+  if(_timer.isActive)
   {
-    if(_timer.isActive)
-    {
-      _timer.cancel();
-    }
+    _timer.cancel();
   }
+
+  _stopwatch.stop();
+}
 
   void _resetTimer()
   {
@@ -355,6 +357,7 @@ class _ProblemsScreenState extends State<ProblemsScreen>
           {
             showFailureBottomSheet(context, 'Respuesta incorrecta', 'Intenta de nuevo');
             attemps++;
+            _startTimer();
             return;
           }
          

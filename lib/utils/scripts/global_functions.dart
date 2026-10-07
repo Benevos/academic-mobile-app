@@ -1,24 +1,25 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 Future<bool> existsInternet() async
 {
-  bool isInternet = true;
+  try
+  {
+    final result = await InternetAddress
+        .lookup('firestore.googleapis.com')
+        .timeout(const Duration(seconds: 3));
 
-  try 
-  {
-    final result = await InternetAddress.lookup('example.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) 
-    {
-      isInternet = true;
-    }
-  } 
-  on SocketException catch (_) 
-  {
-    isInternet = false;
+    return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
   }
-
-  return isInternet;
+  on SocketException catch (_)
+  {
+    return false;
+  }
+  on TimeoutException catch (_)
+  {
+    return false;
+  }
 }
 
 List<bool> evaluateEmptyTextFields(List<TextEditingController> contorllerList)

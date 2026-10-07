@@ -1,10 +1,10 @@
-import 'package:empty_app/pages/about/about_screen.dart';
-import 'package:empty_app/pages/dashboard/dashboard_screen.dart';
-import 'package:empty_app/pages/login/login_screen.dart';
-import 'package:empty_app/pages/problems/problems_screen.dart';
-import 'package:empty_app/pages/register/register_screen.dart';
-import 'package:empty_app/pages/difficulty/difficulty_screen.dart';
-import 'package:empty_app/pages/categories/categories_screen.dart';
+import 'package:calcula_uat/pages/about/about_screen.dart';
+import 'package:calcula_uat/pages/dashboard/dashboard_screen.dart';
+import 'package:calcula_uat/pages/login/login_screen.dart';
+import 'package:calcula_uat/pages/problems/problems_screen.dart';
+import 'package:calcula_uat/pages/register/register_screen.dart';
+import 'package:calcula_uat/pages/difficulty/difficulty_screen.dart';
+import 'package:calcula_uat/pages/categories/categories_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tex/flutter_tex.dart';

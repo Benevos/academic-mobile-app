@@ -1,5 +1,5 @@
-import 'package:empty_app/utils/scripts/global_functions.dart';
-import 'package:empty_app/services/firebase_service.dart';
+import 'package:calcula_uat/utils/scripts/global_functions.dart';
+import 'package:calcula_uat/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget 

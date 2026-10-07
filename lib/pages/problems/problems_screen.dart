@@ -396,6 +396,7 @@ class _ProblemsScreenState extends State<ProblemsScreen>
 
           currentProblem++;
           problemData = problems[currentProblem];
+          attemps = 1;
           _resetTimer();
           _startTimer();
 

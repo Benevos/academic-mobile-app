@@ -75,7 +75,10 @@ class _ProblemsScreenState extends State<ProblemsScreen>
   {
     if(!await existsInternet())
     {
-      showWarningBottomSheet(context, 'Sin conexión a internet', 'Puede constestar las preguntas normalmente, pero si detiene la ejecución antes de conectarse de nuevo, no se guardarán sus respuestas', false);
+      showWarningBottomSheet(context, 
+         'Sin conexión a internet',
+         'Puede continuar con los problemas previamente cargados en este dispositivo. Las respuestas se guardarán localmente y se sincronizarán cuando se restablezca la conexión. Si el contenido solicitado no está almacenado en caché, no podrá cargarse sin conexión.',
+         false);
 
       await Future.delayed(const Duration(seconds: 10));
 
@@ -377,7 +380,7 @@ class _ProblemsScreenState extends State<ProblemsScreen>
 
           if(!await existsInternet())
           {
-            uploadDocument('responses', responseData);
+            unawaited(uploadDocument('responses', responseData));
             await Future.delayed(const Duration(seconds: 2));
           }
           else

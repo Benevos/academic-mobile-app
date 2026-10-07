@@ -1,5 +1,5 @@
-import 'package:empty_app/services/firebase_service.dart';
-import 'package:empty_app/utils/scripts/global_functions.dart';
+import 'package:calcula_uat/services/firebase_service.dart';
+import 'package:calcula_uat/utils/scripts/global_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

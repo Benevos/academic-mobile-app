@@ -1,4 +1,4 @@
-package com.example.empty_app
+package uat.uamm.calculauat
 
 import io.flutter.embedding.android.FlutterActivity
 

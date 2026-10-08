@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "787137987014",
     "project_id": "academic-platform",
-    "storage_bucket": "academic-platform.appspot.com"
+    "storage_bucket": "academic-platform.firebasestorage.app"
   },
   "client": [
     {
@@ -10,6 +10,25 @@
         "mobilesdk_app_id": "1:787137987014:android:27eea9c9008489969d32c7",
         "android_client_info": {
           "package_name": "com.example.empty_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANf0albncJfAsPxrDIL4NlpN8bJbsBpzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787137987014:android:9a18e586128f13a79d32c7",
+        "android_client_info": {
+          "package_name": "uat.uamm.calculauat"
         }
       },
       "oauth_client": [],

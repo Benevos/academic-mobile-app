@@ -26,7 +26,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+              throw UnsupportedError(
+                'Calcula UAT v2.0.0 is currently supported on Android only.',
+              );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -56,13 +58,5 @@ class DefaultFirebaseOptions {
     projectId: 'academic-platform',
     storageBucket: 'academic-platform.appspot.com',
   );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCVu-ZTJC3UDTjP7iZwOqDMSCgJKrbtB4M',
-    appId: '1:787137987014:ios:47a3fdc08df715259d32c7',
-    messagingSenderId: '787137987014',
-    projectId: 'academic-platform',
-    storageBucket: 'academic-platform.appspot.com',
-    iosBundleId: 'com.example.emptyApp',
-  );
+  
 }

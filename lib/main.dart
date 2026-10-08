@@ -39,23 +39,12 @@ class MainApp extends StatelessWidget
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
     ]);
-
-    var brigthness = MediaQuery.of(context).platformBrightness;
-    // ignore: unused_local_variable
-    bool isDarkMode = brigthness == Brightness.dark;
-    isDarkMode = false;
-
-    /*  final Map<String, dynamic> colors = {
-      'backgroundColor': isDarkMode ? const Color.fromARGB(255, 32, 32, 32) : null,
-      'textFieldHintText': isDarkMode ? const Color.fromARGB(0, 0, 0, 0) : null,
-    }; */
-
+    
     return MaterialApp
     (
       debugShowCheckedModeBanner: false,
 
       theme: ThemeData(
-        //scaffoldBackgroundColor: colors['backgroundColor'],
         useMaterial3: true,
         colorSchemeSeed: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -74,18 +63,5 @@ class MainApp extends StatelessWidget
         '/dashboard/categories/difficulty/problems':(context) => const ProblemsScreen(),
       },
     );
-  }
-}
-
-class Latex extends StatelessWidget {
-  const Latex({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const TeXView(
-      renderingEngine: TeXViewRenderingEngine.mathjax(),
-      child: TeXViewDocument(r"""<h1>Este es un titulo con un ecuacion \(x+3\)</>"""));
   }
 }

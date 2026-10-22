@@ -3,131 +3,212 @@ import 'package:calcula_uat/utils/scripts/global_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LoginScreen extends StatefulWidget 
+class LoginScreen extends StatefulWidget
 {
-  const LoginScreen({
-    //required Map<String, dynamic> colors, 
-    super.key
-  });
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> 
+class _LoginScreenState extends State<LoginScreen>
 {
-  TextEditingController scholarKeyController = TextEditingController(text: "");
-  TextEditingController passwordController = TextEditingController(text: "");
+  final TextEditingController scholarKeyController =
+      TextEditingController(text: '');
+
+  final TextEditingController passwordController =
+      TextEditingController(text: '');
 
   bool validateScholarKey = false;
   bool validatePassword = false;
-  
-  String? scholarKeyErrorMessage = "";
-  String? passwordErrorMessage = "";
+
+  String? scholarKeyErrorMessage = '';
+  String? passwordErrorMessage = '';
 
   @override
   void dispose()
   {
     scholarKeyController.dispose();
     passwordController.dispose();
+
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) 
+  Widget build(BuildContext context)
   {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Iniciar sesión', 
+        title: const Text(
+          'Iniciar sesión',
           style: TextStyle(
             color: Colors.white,
             fontSize: 30,
-            fontWeight: FontWeight.w300
-            )
-          ,)
+            fontWeight: FontWeight.w300,
+          ),
         ),
+      ),
+
       body: SingleChildScrollView(
         child: Center(
-          child:  Container(
+          child: Container(
             padding: const EdgeInsets.all(15),
+
             child: Column(
               children: [
-                // ignore: sized_box_for_whitespace
+
                 Container(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                  padding: const EdgeInsets.fromLTRB(
+                    0,
+                    20,
+                    0,
+                    20,
+                  ),
                   width: 180,
-                  //color: Colors.red,
-                  child: Center(child: Image.asset('lib/assets/uat.jpeg'))
+                  child: Center(
+                    child: Image.asset(
+                      'lib/assets/uat.jpeg',
+                    ),
+                  ),
                 ),
 
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                  child: const Text('Inicie una sesión con la clave de su insitución', textAlign: TextAlign.center,)
+                  margin: const EdgeInsets.fromLTRB(
+                    0,
+                    0,
+                    0,
+                    10,
+                  ),
+
+                  child: const Text(
+                    'Inicie una sesión con la clave de su institución',
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-      
+
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(
+                    0,
+                    0,
+                    0,
+                    10,
+                  ),
+
                   child: TextField(
                     controller: scholarKeyController,
                     keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.words,
+                    textCapitalization:
+                        TextCapitalization.characters,
+
                     decoration: InputDecoration(
-                      labelText: 'Clave de escolar',
-                      border: const OutlineInputBorder(),
-                      errorText: validateScholarKey ? scholarKeyErrorMessage : null
+                      labelText: 'Clave escolar',
+                      border:
+                          const OutlineInputBorder(),
+
+                      errorText:
+                          validateScholarKey
+                              ? scholarKeyErrorMessage
+                              : null,
                     ),
                   ),
                 ),
-      
+
                 Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                  margin: const EdgeInsets.fromLTRB(
+                    0,
+                    0,
+                    0,
+                    10,
+                  ),
+
                   child: TextField(
                     controller: passwordController,
                     obscureText: true,
+
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
-                      border: const OutlineInputBorder(),
-                      errorText: validatePassword ? passwordErrorMessage : null,
+                      border:
+                          const OutlineInputBorder(),
+
+                      errorText:
+                          validatePassword
+                              ? passwordErrorMessage
+                              : null,
                     ),
                   ),
                 ),
-      
+
                 TextButton(
                   onPressed: ()
                   {
-                    Navigator.pushNamed(context, '/register');
-                  }, 
-                  child: const Text('¿Su institución no tiene cuenta? Registrela',
-                    style: TextStyle(color: Colors.blue, fontSize: 15, fontWeight: FontWeight.w800),
-                  )
+                    Navigator.pushNamed(
+                      context,
+                      '/register',
+                    );
+                  },
+
+                  child: const Text(
+                    '¿Su institución no tiene cuenta? Regístrela',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
                 ),
-      
+
                 SizedBox(
                   height: 50,
                   width: 250,
+
                   child: TextButton(
                     style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                      backgroundColor:
+                          MaterialStatePropertyAll(
+                        Colors.blue,
+                      ),
                     ),
-                    onPressed: () async 
+
+                    onPressed: () async
                     {
                       validateScholarKey = false;
                       validatePassword = false;
+
                       var validateForm = false;
 
                       setState(() {});
 
-                      List<TextEditingController> contorllerList = [scholarKeyController, passwordController];
+                      final List<TextEditingController>
+                          controllerList = [
+                        scholarKeyController,
+                        passwordController,
+                      ];
 
-                      List<bool> emptyTextFieldValidators = evaluateEmptyTextFields(contorllerList);
+                      final List<bool>
+                          emptyTextFieldValidators =
+                          evaluateEmptyTextFields(
+                        controllerList,
+                      );
 
-                      validateScholarKey = emptyTextFieldValidators[0];
-                      validatePassword = emptyTextFieldValidators[1];
-                      validateForm = emptyTextFieldValidators[2];
+                      validateScholarKey =
+                          emptyTextFieldValidators[0];
 
-                      scholarKeyErrorMessage = validateScholarKey ? 'No deje espacios vacios' : null;
-                      passwordErrorMessage = validatePassword ? 'No deje espacios vacios' : null;
+                      validatePassword =
+                          emptyTextFieldValidators[1];
+
+                      validateForm =
+                          emptyTextFieldValidators[2];
+
+                      scholarKeyErrorMessage =
+                          validateScholarKey
+                              ? 'No deje espacios vacíos'
+                              : null;
+
+                      passwordErrorMessage =
+                          validatePassword
+                              ? 'No deje espacios vacíos'
+                              : null;
 
                       if(validateForm)
                       {
@@ -135,15 +216,38 @@ class _LoginScreenState extends State<LoginScreen>
                         return;
                       }
 
-                      showProgressBottomSheet(context, 'Iniciando sesion');
+                      showProgressBottomSheet(
+                        context,
+                        'Iniciando sesión',
+                      );
 
-                      List institutionData = await getSingleConditionQueriedCollection('institutions', 'scholarKey', '==', scholarKeyController.text.trim().toUpperCase());
+                      final List institutionData =
+                          await getSingleConditionQueriedCollection(
+                        'institutions',
+                        'scholarKey',
+                        '==',
+                        scholarKeyController.text
+                            .trim()
+                            .toUpperCase(),
+                      );
+
+                      /*
+                       * The widget may have been removed
+                       * while Firestore was responding.
+                       */
+                      if(!mounted)
+                      {
+                        return;
+                      }
 
                       if(institutionData.isEmpty)
                       {
-                        setState(() {
+                        setState(()
+                        {
                           validateScholarKey = true;
-                          scholarKeyErrorMessage = 'Esta clave no existe';
+
+                          scholarKeyErrorMessage =
+                              'Esta clave no existe';
                         });
 
                         Navigator.pop(context);
@@ -151,11 +255,17 @@ class _LoginScreenState extends State<LoginScreen>
                         return;
                       }
 
-                      if(institutionData[0]['password'] != passwordController.text)
+                      if(
+                        institutionData[0]['password'] !=
+                            passwordController.text
+                      )
                       {
-                        setState(() {
+                        setState(()
+                        {
                           validatePassword = true;
-                          passwordErrorMessage = 'Contraseña incorrecta';
+
+                          passwordErrorMessage =
+                              'Contraseña incorrecta';
                         });
 
                         Navigator.pop(context);
@@ -165,39 +275,66 @@ class _LoginScreenState extends State<LoginScreen>
 
                       Navigator.pop(context);
 
-                      Navigator.pushNamed(context, '/dashboard', arguments: {'scholarKey': scholarKeyController.text.trim().toUpperCase()});
+                      Navigator.pushNamed(
+                        context,
+                        '/dashboard',
+
+                        arguments: {
+                          'scholarKey':
+                              scholarKeyController.text
+                                  .trim()
+                                  .toUpperCase(),
+                        },
+                      );
 
                       scholarKeyController.clear();
-                      passwordController.clear();                 
-                    }, 
+                      passwordController.clear();
+                    },
 
-                    child: const Text('Ingresar',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    )
+                    child: const Text(
+                      'Ingresar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
                   ),
                 ),
 
                 TextButton(
-                  onPressed: () 
+                  onPressed: ()
                   {
-                    Navigator.pushNamed(context, '/about');
-                  }, 
-                  child: Text('Contacto del desarrollador')),
+                    Navigator.pushNamed(
+                      context,
+                      '/about',
+                    );
+                  },
+
+                  child: const Text(
+                    'Contacto del desarrollador',
+                  ),
+                ),
 
                 TextButton(
-                  onPressed: () async 
+                  onPressed: () async
                   {
-                      var uri = Uri.parse('https://academic-web-app-v2.vercel.app/privacy');
-                    
-                      await launchUrl(uri);
-                  }, 
-                  child: Text('Aviso de privacidad'))
-              ]
-            )
+                    final Uri uri = Uri.parse(
+                      'https://academic-web-app-v2.vercel.app/privacy',
+                    );
+
+                    await launchUrl(uri);
+                  },
+
+                  child: const Text(
+                    'Aviso de privacidad',
+                  ),
+                ),
+
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-

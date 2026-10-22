@@ -1,5 +1,4 @@
 import 'package:calcula_uat/services/firebase_service.dart';
-import 'package:calcula_uat/utils/scripts/global_functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
